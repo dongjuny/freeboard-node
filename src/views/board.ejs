@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <style>
+        table.type09 {
+            border-collapse: collapse;
+            text-align: left;
+            line-height: 1.5;
+
+        }
+
+        table.type09 thead th {
+            padding: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            color: #369;
+            border-bottom: 3px solid #036;
+        }
+
+        table.type09 tbody th {
+            width: 150px;
+            padding: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            border-bottom: 1px solid #ccc;
+            background: #f3f6f7;
+        }
+
+        table.type09 td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body></body>
+<div class="container">
+    <a href=/getlist>
+        <h2>자유게시판</h2>
+    </a>
+    <tbody>
+        <table class="type09">
+            <tbody>
+                <tr>
+                    <th scope="row">제목</th>
+                    <td><%=result.title%></td>
+                </tr>
+                <tr>
+                    <th scope="row">작성자</th>
+                    <td>게스트</td>
+                </tr>
+                <tr>
+                    <th scope="row">등록시간</th>
+                    <td><%= moment(result.date).format('YYYY년 MM월 DD일 HH:mm:ss') %></td>
+                </tr>
+                <tr>
+                    <th scope="row">내용</th>
+                    <td><%= result.contents%></td>
+                </tr>
+                <form action="/delete/<%= result.id %>?_method=DELETE" method="post">
+                    <input type="submit" value="삭제">
+                </form>
+            </tbody>
+        </table>
+    </tbody>
+</div>
+</body>
+
+</html>

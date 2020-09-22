@@ -1,12 +1,13 @@
-const template = require('../views/Template')
 const Model = require('../models')
 
-//모든 게시물 반환
-// url '/'
-exports.main = (req, res) => {
-  Model.board.findAll()
+const path = '/Users/handongjun/Desktop/freeboard-node/src/views/main'
+// url = '/getlist'
+exports.getlist = (req, res) => {
+  Model.board.findAll( {
+    raw: true
+  })
   .then(result => {
-    res.send(result);
+    res.render(path, {result: result})
   })
   .catch(err => {
     console.log(err)
@@ -15,19 +16,25 @@ exports.main = (req, res) => {
 
 // '/create'
 exports.create = (req, res) => {
-  var board = req.body;
-  var date = Date.now();
+  let board = req.body;
+  let date = Date.now();
 
+  console.log(board)
   Model.board.create({
     title: board.title,
     contents: board.contents,
     writer : 1,
     date : date
   }).then( result => {
-    res.send({result: result})
+    res.redirect('/getlist')
   })
   .catch(err => {
-    console.log(err)
+    console.log("@@@@@에러다@@@@@")
+    console.log(req.board)
+    console.log(board.title)
+    console.log(board.contents)
+    res.redirect('/getlist')
+    console.log("@@@@@에러다@@@@@")
   })
 }
 
@@ -39,7 +46,7 @@ exports.delete = (req, res) => {
     where: {id: postId}
   })
   .then(result => {
-    res.send({result: result})
+    res.redirect('/getlist')
   })
   .then(err => {
     console.log(err)
@@ -54,7 +61,7 @@ exports.read = (req, res) => {
   Model.board.findOne({
     where:{id: postId}
   }).then( result => {
-    res.send(result);
+    res.render('/Users/handongjun/Desktop/freeboard-node/src/views/board',{result: result});
   })
   .catch(err => {
     console.log(err)
@@ -77,7 +84,7 @@ exports.update = (req, res) => {
     where: {id: postId}
   })
   .then( result => {
-    res.send({result: result})
+    res.send({result: (result == 1) ? true : false})
   })
   .catch(err => {
     console.log(err)
