@@ -1,11 +1,24 @@
-class Board {
-    constructor(id, title, contents, writer, date) {
-        this.id = id;
-        this.title = title;
-        this.contents = contents;
-        this.writer = writer;
-        this.date = date;
-    }
-}
-
-module.exports = Board;
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define('boards', {
+      title: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+      },
+      contents: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+      },
+      writer: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal('now()'),
+      }
+    }, {
+      //time stamp off
+      timestamps: false,
+    });
+  };
