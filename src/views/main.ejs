@@ -11,7 +11,9 @@
 <body>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>  
     <div class="container">
-        <h2>자유게시판</h2>
+        <a href=/>
+            <h2>자유게시판</h2>
+        </a>
         <table class="table text-center">
             <thead>
                 <form action="/create" method="POST">
@@ -33,9 +35,11 @@
                 </form>
             </thead>
             <tbody>
-                <% result.forEach((val) => { %>
+                <% var i = 1 %>
+                <% result.forEach((val) => {  %>
                     <tr>
-                        <td><%= val.id %></td>
+                        <td><%= i %></td>
+                        <%i+=1%>
                         <td><a href=/read/<%= val.id %>><%= val.title %></a></td>
                         <td>게스트</td>
                         <td><%= moment(val.date).locale("ko").fromNow() %></td>

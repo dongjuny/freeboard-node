@@ -26,15 +26,10 @@ exports.create = (req, res) => {
     writer : 1,
     date : date
   }).then( result => {
-    res.redirect('/getlist')
+    res.redirect('/')
   })
   .catch(err => {
-    console.log("@@@@@에러다@@@@@")
-    console.log(req.board)
-    console.log(board.title)
-    console.log(board.contents)
-    res.redirect('/getlist')
-    console.log("@@@@@에러다@@@@@")
+    console.log(err)
   })
 }
 
@@ -46,7 +41,7 @@ exports.delete = (req, res) => {
     where: {id: postId}
   })
   .then(result => {
-    res.redirect('/getlist')
+    res.redirect('/')
   })
   .then(err => {
     console.log(err)
@@ -84,9 +79,26 @@ exports.update = (req, res) => {
     where: {id: postId}
   })
   .then( result => {
-    res.send({result: (result == 1) ? true : false})
+    //res.send({result: (result == 1) ? true : false})
+    res.redirect('/')
   })
   .catch(err => {
     console.log(err)
   })
+}
+
+
+// '/update:id'
+exports.update_page = (req, res) => {
+  let postId = req.params.id
+
+  Model.board.findOne({
+    where:{id: postId}
+  }).then( result => {
+    res.render('/Users/handongjun/Desktop/freeboard-node/src/views/update',{result: result});
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
 }
