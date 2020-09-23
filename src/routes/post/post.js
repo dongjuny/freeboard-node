@@ -2,7 +2,7 @@ var router = require('express').Router();
 var Model = require('../../models')
 
 // main
-router.get('/post', (req, res) => {
+router.get('/post', (req, res, next) => {
   Model.board.findAll({
     raw: true
   })
@@ -10,12 +10,12 @@ router.get('/post', (req, res) => {
       res.render('main', { result: result })
     })
     .catch(err => {
-      res.sendStatus(404);
+      next(err)
     })
 })
 
 // create
-router.post('/post', (req, res) => {
+router.post('/post', (req, res, next) => {
   let board = req.body;
   let date = Date.now();
 
@@ -29,12 +29,12 @@ router.post('/post', (req, res) => {
     res.redirect('/post')
   })
     .catch(err => {
-      res.sendStatus(404);
+      next(err)
     })
 })
 
 // read
-router.get('/post/:id', (req, res) => {
+router.get('/post/:id', (req, res, next) => {
   let postId = req.params.id
 
   console.log(postId)
@@ -45,12 +45,12 @@ router.get('/post/:id', (req, res) => {
     res.render('post', { result: result });
   })
     .catch(err => {
-      res.sendStatus(404);
+      next(err)
     })
 })
 
 // update
-router.get('/post/update/:id', (req, res) => {
+router.patch('/post/:id', (req, res, next) => {
   let postId = req.params.id
 
   Model.board.findOne({
@@ -59,11 +59,11 @@ router.get('/post/update/:id', (req, res) => {
     res.render('update', { result: result });
   })
     .catch(err => {
-      res.sendStatus(404);
+      next(err)
     })
 })
 
-router.put('/post/:id', (req, res) => {
+router.put('/post/:id', (req, res, next) => {
   let postId = req.params.id
   var board = req.body;
   var date = Date.now();
@@ -80,12 +80,12 @@ router.put('/post/:id', (req, res) => {
       res.redirect('/post')
     })
     .catch(err => {
-      res.sendStatus(404);
+      next(err)
     })
 })
 
 // delete
-router.delete('/post/:id', (req, res) => {
+router.delete('/post/:id', (req, res, next) => {
   let postId = req.params.id
 
   Model.board.destroy({
@@ -95,7 +95,7 @@ router.delete('/post/:id', (req, res) => {
       res.redirect('/post')
     })
     .then(err => {
-      res.sendStatus(404);
+      next(err)
     })
 })
 

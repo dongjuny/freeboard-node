@@ -69,7 +69,7 @@
                 <form action="/post/<%= result.id %>?_method=DELETE" method="post">
                     <input type="submit" class="btn btn-primary"  value="삭제">
                 </form>
-                <form action="/post/update/<%= result.id %>" method="get">
+                <form action="/post/<%= result.id %>?_method=PATCH" method="post">
                     <input type="submit" class="btn btn-primary" value="수정">
                 </form>
             </tbody>
