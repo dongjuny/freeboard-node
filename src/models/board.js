@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       writer: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
       date: {
@@ -22,3 +22,4 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     });
   };
+  

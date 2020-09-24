@@ -1,13 +1,15 @@
-var router = require('express').Router();
-var Model = require('../../models')
+const router = require('express').Router();
+const Model = require('../../models')
+const user = require('../../models/user')
 
 // main
 router.get('/post', (req, res, next) => {
+
   Model.board.findAll({
     raw: true
   })
     .then(result => {
-      res.render('main', { result: result })
+      res.render('main', { result: result, session: req.session })
     })
     .catch(err => {
       next(err)
@@ -16,14 +18,19 @@ router.get('/post', (req, res, next) => {
 
 // create
 router.post('/post', (req, res, next) => {
-  let board = req.body;
-  let date = Date.now();
-
+  var board = req.body;
+  var date = Date.now();
+  var user_id
+  if (req.session.is_logined) {
+    user_id = req.session.user_id;
+  }else {
+    user_id = "guest";
+  }
   console.log(board)
   Model.board.create({
     title: board.title,
     contents: board.contents,
-    writer: 1,
+    writer: user_id,
     date: date
   }).then(result => {
     res.redirect('/post')

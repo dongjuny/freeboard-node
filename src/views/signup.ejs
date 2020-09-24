@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+</head>
+<body>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>  
+    <div class="container">
+        <a href="/post">
+            <h2>자유게시판</h2>
+        </a>
+        <form action="/auth" method="post">
+            <div>
+                <label>Username:</label>
+                <input type="아이디:" name="id"/>
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="비밀번호:" name="pw"/>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="가입하기"/>
+            </div>
+        </form>
+</body>
+
+</html>
